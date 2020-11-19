@@ -6,6 +6,14 @@ admin.initializeApp();
 exports.addMessage = functions.https.onRequest(async (req, res) => {
   const original = req.query.text;
 
+  const { authorization } = req.headers;
+  const split = authorization.split("Bearer");
+  const token = split[1];
+
+  console.log({ authorization });
+
+  console.log({ token });
+
   const writeResult = await admin
     .firestore()
     .collection("messages")
